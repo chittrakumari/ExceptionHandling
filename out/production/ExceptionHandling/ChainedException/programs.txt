@@ -1,0 +1,76 @@
+class SubSubcatch {
+    public static void main(String[] args) {
+        try {
+            int firstNumber = 0;
+//            int secondNumber = 42 / firstNumber; // ArithmeticException object
+            throw new ArrayIndexOutOfBoundsException();
+        } catch (ArithmeticException arithmeticException) {
+            System.err.println("this is never reached!");
+        } catch (Exception exception) {
+            System.err.println("generic exception catch block");
+        }
+    }
+}
+ // Nested Try Statements
+
+class NestedTry {
+    public static void main(String[] args) {
+        try {
+            int argumentsLength = args.length;
+            try {
+                if (argumentsLength == 1) {
+                    argumentsLength = argumentsLength / (argumentsLength - argumentsLength); // divide by zero
+                }
+                if (argumentsLength == 2) {
+                    int[] array = {1};
+                    array[42] = 99;
+                }
+            } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException) {
+                System.err.println("array index out of bounds" + arrayIndexOutOfBoundsException);
+            }
+            int secondNumber = 42 / argumentsLength; // 42 / 0
+            System.out.println("secondNumber = " + secondNumber);
+        } catch (ArithmeticException arithmeticException) {
+            System.err.println("divide by zero" + arithmeticException);
+        }
+    }
+}
+class FinallyDemo {
+
+    static void processA() throws RuntimeException {
+        try {
+            System.out.println("inside process A");
+            // throw new RuntimeException("demo");
+        } finally {
+            System.out.println("process A finally");
+        }
+    }
+
+    static void processB() {
+        try {
+            System.out.println("inside process B");
+        } finally {
+            System.out.println("process B finally");
+        }
+    }
+
+    static void processC() {
+        try {
+            System.out.println("inside process C");
+        } finally {
+            System.out.println("process C finally");
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            processA();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+
+        processB();
+        processC();
+    }
+
+}
